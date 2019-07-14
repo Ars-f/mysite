@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{% static "js/jquery-3.4.1.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+</head>
+<body>
+{#<span class="myfuit">我喜欢的水果</span><span><input type="button" id="btnload" value="装载"> </span>#}
+{#<p id="content"></p>#}
+{#<script>#}
+{#    $("#btnload").click(function(){#}
+{#        $("#content").load("{% url 'fruits' %}")#}
+{##}
+{#    })#}
+{#</script>#}
+<form action="">
+    a:<input type="text" id="name" name="a"><br>
+    b:<input type="text" id="password" name="b"><br>
+    <input type="button" value="提交" id="btn">
+    <p id="result"></p>
+    <script>
+{#        $("#btn").click(function(){#}
+{#            var a=$("#name").val()#}
+{#            var b=$("#password").val()#}
+{#            $.get("{%  url 'add' %}",#}
+{#            {"a" : a,"b" : b},#}
+{#            function (ret) {#}
+{#                $("#result").html(ret.ret)#}
+{##}
+{#            }#}
+{#            )#}
+{##}
+{##}
+{#        })#}
+        $.ajaxSetup({
+            data:{csrfmiddlewaretoken:'{{ csrf_token }}'},
+        });
+        $("#btn").click(function(){
+             var a=$("#name").val()
+            var b=$("#password").val()
+            $.post("{% url "add" %}",
+                {'a':a,'b':b},
+                function (ret) {
+                $("#result").html(ret.ret)
+                }
+
+            )
+
+        })
+    </script>
+</form>
+
+
+
+</body>
+</html>
